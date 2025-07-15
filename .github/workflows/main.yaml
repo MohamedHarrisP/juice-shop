@@ -15,7 +15,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Set up Python Environment
-              uses: actions/setup-python@v4
+              uses: actions/setup-python@v5
               with:
                 python-version: '3.x'
 
@@ -26,7 +26,7 @@ jobs:
               run: semgrep --config auto --error || true --json --output semgrep-report.json
             
             - name: Upload Semgrep JSON report
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                 name: Semgrep Scan Report
                 path: semgrep-report.json
