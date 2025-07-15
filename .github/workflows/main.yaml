@@ -23,7 +23,7 @@ jobs:
               run: pip install semgrep
             
             - name: Run Semgrep
-              run: semgrep --config auto --error || true --json --output semgrep-report.json
+              run: semgrep --config auto --json --output semgrep-report.json
             
             - name: Upload Semgrep JSON report
               uses: actions/upload-artifact@v4
