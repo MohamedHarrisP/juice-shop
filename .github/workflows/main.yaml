@@ -7,7 +7,7 @@ on:
     pull_request:
 
 jobs:
-    semgrep:
+    SAST:
         runs-on: ubuntu-latest
 
         steps:
@@ -30,6 +30,13 @@ jobs:
               with:
                 name: SAST Scan Report
                 path: semgrep-report.json
+    
+    SCA:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
             
             - name: Set up Node.js
               uses: actions/setup-node@v4
