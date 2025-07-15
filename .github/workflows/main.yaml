@@ -1,4 +1,4 @@
-name: Semgrep SAST Scanning
+name: DevSecOps Security Scanning Pipeline
 
 on:
     push:
@@ -22,12 +22,23 @@ jobs:
             - name: Install Semgrep
               run: pip install semgrep
             
-            - name: Run Semgrep
+            - name: Run Semgrep SAST Scanning
               run: semgrep --config auto --json --output semgrep-report.json
             
             - name: Upload Semgrep JSON report
               uses: actions/upload-artifact@v4
               with:
-                name: Semgrep Scan Report
+                name: SAST Scan Report
                 path: semgrep-report.json
             
+            - name: Install Retire.js
+              run: npm install -g retire
+
+            - name: Run Retire.js SCA Scanning
+              run: retire --outputformat json --outputpath retire-report.json || true
+
+            - name: Upload Retire.js JSON report
+              uses: actions/upload-artifact@v4
+              with:
+                name: SCA Scan Report
+                path: retire-report.json  
