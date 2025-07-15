@@ -31,14 +31,19 @@ jobs:
                 name: SAST Scan Report
                 path: semgrep-report.json
             
-            - name: Install Retire.js
-              run: npm install -g retire
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: '18'
 
-            - name: Run Retire.js SCA Scanning
-              run: retire --outputformat json --outputpath retire-report.json || true
+            - name: Install dependencies
+              run: npm install
 
-            - name: Upload Retire.js JSON report
+            - name: Run npm audit and save report
+              run: npm audit --json > npm-audit-report.json || true
+              
+            - name: Upload npm audit report
               uses: actions/upload-artifact@v4
               with:
-                name: SCA Scan Report
-                path: retire-report.json  
+                name: npm-audit-report
+                path: npm-audit-report.json
